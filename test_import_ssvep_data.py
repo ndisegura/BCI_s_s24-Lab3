@@ -30,3 +30,13 @@ data_dict=import_ssvep_data.load_ssvep_data(subject,data_directory)
 #%% Cell2 Plot the data
 
 import_ssvep_data.plot_raw_data(data_dict,subject,['Fz','Oz'])
+
+#%% Cell3 Epoch the data_dict
+
+#epoch start times
+epoch_start_time = 0
+epoch_end_time= 20
+
+#epoch data
+
+eeg_epochs,epoch_time,is_trial_15Hz=ss.epoch_ssvep_data(data_dict,epoch_start_time,epoch_end_time)
