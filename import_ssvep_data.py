@@ -67,3 +67,46 @@ def plot_raw_data(data,subject,channels_to_plot):
 # channels = data['channels']
 # fs = ...
 # ```
+
+
+#%%
+
+def epoch_ssvep_data(data,epoch_start_time,epoch_end_time):
+    
+    channels=data['channels']
+    eeg=data['eeg']
+    fs=data['fs']
+    eeg_time=np.arange(0,len(eeg[0])*1/fs,1/fs)
+
+    event_samples=data['event_samples']
+    event_duration=data['event_durations']
+    event_type=data['event_types']
+
+    channel_count= len(channels)
+    event_count = len(event_samples)
+
+
+    samples_per_second = int(1/(eeg_time[1]-eeg_time[0]))
+    seconds_per_epoch = epoch_end_time-epoch_start_time
+    samples_per_epoch = int(samples_per_second * seconds_per_epoch)
+
+    #create empty epoch array
+    eeg_epochs = np.zeros((event_count, channel_count, samples_per_epoch))
+
+    for event_index, event in enumerate(event_samples):
+        
+        # get eeg data_dict within the timebounds of the event
+        data_to_add = eeg[:,event:event+samples_per_epoch]
+        
+        # add eeg data_dict into epoch
+        eeg_epochs[event_index,:,:] = data_to_add
+
+    #get time relative to each event 
+    epoch_time = eeg_time[:samples_per_epoch]
+    
+    #create boolean array true if 15hz flash during epoch
+    is_trial_15Hz = event_type== '15hz'
+  
+    return(eeg_epochs,epoch_time,is_trial_15Hz)
+    
+    
