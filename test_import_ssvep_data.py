@@ -40,3 +40,7 @@ epoch_end_time= 20
 #epoch data
 
 eeg_epochs,epoch_time,is_trial_15Hz=import_ssvep_data.epoch_ssvep_data(data_dict,epoch_start_time,epoch_end_time)
+
+#%% Cell4 Compute FFT
+
+eeg_epochs_fft,fft_frequencies=import_ssvep_data.get_frequency_spectrum(eeg_epochs,data_dict['fs'])

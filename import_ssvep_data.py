@@ -59,14 +59,6 @@ def plot_raw_data(data,subject,channels_to_plot):
     axs[1].grid()
     plt.tight_layout()
         
-# ```
-# Fields can then be extracted like this:
-# ```python
-# # extract variables from dictionary
-# eeg = data['eeg']
-# channels = data['channels']
-# fs = ...
-# ```
 
 
 #%%
@@ -109,4 +101,13 @@ def epoch_ssvep_data(data,epoch_start_time,epoch_end_time):
   
     return(eeg_epochs,epoch_time,is_trial_15Hz)
     
+def get_frequency_spectrum(eeg_epochs,fs):
     
+    # Take FFT of signal
+    eeg_epochs_fft=np.fft.rfft(eeg_epochs)
+    #Compute FFT Magnitude from Complex values
+    eeg_epochs_fft_magnitude=np.absolute(eeg_epochs_fft)
+    #Compute Frequencies
+    fft_frequencies=np.arange(0,fs/2,(fs/2)/eeg_epochs_fft_magnitude.shape[2])
+    
+    return eeg_epochs_fft,fft_frequencies 
