@@ -9,7 +9,7 @@ Created on Mon Feb 26 19:25:50 2024
 import os
 import sys
 import matplotlib.pyplot as plt
-import import_ssvep_data as ss
+import import_ssvep_data
 
 #Make sure relative path work
 cwd=os.getcwd()
@@ -25,11 +25,11 @@ subject=1
 
 #%% Cell1 Load the Data
 
-data_dict=ss.load_ssvep_data(subject,data_directory)
+data_dict=import_ssvep_data.load_ssvep_data(subject,data_directory)
 
 #%% Cell2 Plot the data
 
-ss.plot_raw_data(data_dict,subject,['Fz','Oz'])
+import_ssvep_data.plot_raw_data(data_dict,subject,['Fz','Oz'])
 
 #%% Cell3 Epoch the data_dict
 
@@ -39,4 +39,4 @@ epoch_end_time= 20
 
 #epoch data
 
-eeg_epochs,epoch_time,is_trial_15Hz=ss.epoch_ssvep_data(data_dict,epoch_start_time,epoch_end_time)
+eeg_epochs,epoch_time,is_trial_15Hz=import_ssvep_data.epoch_ssvep_data(data_dict,epoch_start_time,epoch_end_time)

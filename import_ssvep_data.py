@@ -32,7 +32,7 @@ def plot_raw_data(data,subject,channels_to_plot):
     
     is_channel_match=np.zeros(len(eeg[0]),dtype=bool)
     
-    fig, axs = plt.subplots(2)
+    fig, axs = plt.subplots(2,sharex=True)
     fig.suptitle(f'SSVEP Subject {subject} Raw Data')
     
     #PLot Event types
