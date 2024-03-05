@@ -44,3 +44,9 @@ eeg_epochs,epoch_time,is_trial_15Hz=import_ssvep_data.epoch_ssvep_data(data_dict
 #%% Cell4 Compute FFT
 
 eeg_epochs_fft,fft_frequencies=import_ssvep_data.get_frequency_spectrum(eeg_epochs,data_dict['fs'])
+
+#%% Plot the Power Spectra
+
+channels=data_dict['channels']
+channels_to_plot=['Fz','Oz']
+spectrum_db_12Hz,spectrum_db_15Hz=import_ssvep_data.plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,channels_to_plot,subject)

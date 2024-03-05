@@ -50,7 +50,7 @@ def plot_raw_data(data,subject,channels_to_plot):
         
         is_channel_match=channels==channel_member #Boolean indexing across rows for item in list
         
-        selected_channel_data=eeg[is_channel_match]
+        selected_channel_data=eeg[is_channel_match]/10-6 #Divide by 10-6 to obtain voltage in uV
         
         axs[1].plot(eeg_time, np.squeeze(selected_channel_data),label=channel_member)
     axs[1].set_ylabel('Voltage (uV)')
@@ -106,8 +106,24 @@ def get_frequency_spectrum(eeg_epochs,fs):
     # Take FFT of signal
     eeg_epochs_fft=np.fft.rfft(eeg_epochs)
     #Compute FFT Magnitude from Complex values
-    eeg_epochs_fft_magnitude=np.absolute(eeg_epochs_fft)
+    eeg_epochs_fft_magnitude=np.absolute(eeg_epochs_fft-eeg_epochs_fft)
     #Compute Frequencies
     fft_frequencies=np.arange(0,fs/2,(fs/2)/eeg_epochs_fft_magnitude.shape[2])
     
     return eeg_epochs_fft,fft_frequencies 
+
+def plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,channels_to_plot,subject=1):
+    
+    #Find the 12Hz trials
+    is_trial_12Hz=is_trial_15Hz==False
+    #separate 12Hz and 15Hz epochs
+    eeg_epochs_fft_12Hz=eeg_epochs_fft[is_trial_12Hz]
+    eeg_epochs_fft_15Hz=eeg_epochs_fft[is_trial_15Hz]
+    
+    #Compute FFT Magnitude from Complex values for 12Hz
+    eeg_epochs_fft_magnitude_12hz=np.absolute(eeg_epochs_fft_12Hz)
+    eeg_epochs_fft_magnitude_15hz=np.absolute(eeg_epochs_fft_15Hz)
+    
+    
+    
+    
