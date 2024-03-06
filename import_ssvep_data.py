@@ -131,9 +131,35 @@ def plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,ch
     #Compute the power by squaring each element
     eeg_epochs_fft_power_12hz=np.power(eeg_epochs_fft_magnitude_12hz,power_array)
     eeg_epochs_fft_power_15hz=np.power(eeg_epochs_fft_magnitude_15hz,power_array)
+    #Compute the mean
+    eeg_epochs_fft_mean_12hz=np.mean(eeg_epochs_fft_power_12hz, axis=0)
+    eeg_epochs_fft_mean_15hz=np.mean(eeg_epochs_fft_power_15hz, axis=0)
+    
     #Compute the FFT power in dB
-    eeg_epochs_fft_db_12hz= np.log10(eeg_epochs_fft_power_12hz)
-    eeg_epochs_fft_db_15hz= np.log10(eeg_epochs_fft_power_15hz)
+    eeg_epochs_fft_db_12hz= np.log10(eeg_epochs_fft_mean_12hz)
+    eeg_epochs_fft_db_15hz= np.log10(eeg_epochs_fft_mean_15hz)
+    
+    #is_channel_to_plot=channels==any(channels_to_plot)
+    
+    #Plot the spectrum
+    plot_count=len(channels_to_plot)
+    fig, axs = plt.subplots( plot_count,sharex=True)
+    
+    
+    for channel_index, channel_name in enumerate(channels_to_plot):
+        
+       is_channel_to_plot=channels==channel_name
+       axs[channel_index].plot(fft_frequencies,np.squeeze(eeg_epochs_fft_db_12hz[is_channel_to_plot]),label='12Hz')
+       axs[channel_index].plot(fft_frequencies,np.squeeze(eeg_epochs_fft_db_15hz[is_channel_to_plot]),label='15Hz')
+       axs[channel_index].set_ylabel('Power (dB)')
+       axs[channel_index].set_xlabel('Frequency (Hz)')
+       axs[channel_index].set_title(f'Channel {channel_name} frequency content\n for SSVEP S{subject}')
+       axs[channel_index].legend()
+       axs[channel_index].grid()
+    plt.tight_layout()
+    return eeg_epochs_fft_db_12hz,eeg_epochs_fft_db_15hz   
+        
+        
     
     
     
