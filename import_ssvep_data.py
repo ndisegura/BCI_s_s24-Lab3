@@ -124,6 +124,16 @@ def plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,ch
     eeg_epochs_fft_magnitude_12hz=np.absolute(eeg_epochs_fft_12Hz)
     eeg_epochs_fft_magnitude_15hz=np.absolute(eeg_epochs_fft_15Hz)
     
+    #Compute the power
+    #Generate power array
+    power_array=np.zeros(eeg_epochs_fft_magnitude_12hz.shape)
+    power_array=2 #Array of dimension m,n,l with value=2
+    #Compute the power by squaring each element
+    eeg_epochs_fft_power_12hz=np.power(eeg_epochs_fft_magnitude_12hz,power_array)
+    eeg_epochs_fft_power_15hz=np.power(eeg_epochs_fft_magnitude_15hz,power_array)
+    #Compute the FFT power in dB
+    eeg_epochs_fft_db_12hz= np.log10(eeg_epochs_fft_power_12hz)
+    eeg_epochs_fft_db_15hz= np.log10(eeg_epochs_fft_power_15hz)
     
     
     
