@@ -64,8 +64,8 @@ and recignition.
 fundamental SSVEP frequency.
 3. The most likley cause for this peak is that the data was collected in europe
 where the powerline noise occurs at 50hz. 
-4. The brain signal causing ectra power at 10hz is the alpha rthym. The alpha 
-rythm originayes in the thalamus and is seen as a collection of alpha ruthyms
+4. The brain signal causing extra power at 10hz is the alpha rthym. The alpha 
+rthym originayes in the thalamus and is seen as a collection of alpha ruthyms
 together. This may imply synchronicity between cells which increases the amplitude
 of the overall alpha wave. 
 
