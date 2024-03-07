@@ -101,6 +101,30 @@ def plot_raw_data(data,subject,channels_to_plot):
 #%%
 
 def epoch_ssvep_data(data,epoch_start_time,epoch_end_time):
+    '''
+    Epochs ssvep data based on when the event occurs and up to 20 seconds after  
+
+    Parameters
+    ----------
+    data : dictonary 
+         containing feilds of ssvep data representing strings, floats, and bool, 
+         size of dictionary N x 1 where N is the amount of feilds
+    epoch_start_time : int
+        Time in seconds before the event starts. The default is -.5.
+    epoch_end_time : int
+        Time in seconds after the event starts
+
+    Returns
+    -------
+    eeg_epochs : 3D array of floats 
+         Number of events x Number of channels x number of samples per epoch
+    epoch_time :2D Array of floats 
+        samples per epoch x 1 array of times relative to event onset.
+    is_trial_15Hz : array of bool
+        boolean array true if event occured at 15hz, size N x 1 where N is 
+        number of events 
+
+    '''
     
     channels=data['channels']
     eeg=data['eeg']
