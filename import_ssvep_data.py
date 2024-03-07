@@ -139,6 +139,24 @@ def epoch_ssvep_data(data,epoch_start_time,epoch_end_time):
     return(eeg_epochs,epoch_time,is_trial_15Hz)
     
 def get_frequency_spectrum(eeg_epochs,fs):
+    """
+    Function to compute the fast fourier transform of epoch'd eeg data'
+
+    Parameters
+    ----------
+    eeg_epochs : TYPE
+        DESCRIPTION.
+    fs : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    eeg_epochs_fft : TYPE
+        DESCRIPTION.
+    fft_frequencies : TYPE
+        DESCRIPTION.
+
+    """
     
     # Take FFT of signal
     eeg_epochs_fft=np.fft.rfft(eeg_epochs)
@@ -150,6 +168,35 @@ def get_frequency_spectrum(eeg_epochs,fs):
     return eeg_epochs_fft,fft_frequencies 
 
 def plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,channels_to_plot,subject=1):
+    """
+    Function to plot the power spectrum of the eeg epochs based on the selected channels to plot
+    passed as a list of strings.
+
+    Parameters
+    ----------
+    eeg_epochs_fft : numpy array of floats of dimension T x C x S where T is the number of event TRIALS, C is the number of channels
+    and S is the numnber of FFT points computed from EEG samples. eeg_epochs_fft contains the complex number spectrum of the eeg data
+        
+    fft_frequencies : numpuy array of float of size (n,) where n is the number of frequency number from 0 (DC) up to the nyquest rate.
+        DESCRIPTION.
+    is_trial_15Hz : Boolean array of size T what is TRUE whenever the event was 15Hz SSVEP 
+        
+    channels : array of string containing the list of channels
+       
+    channels_to_plot : tuple of string whose elements are part of the elements of the "channels" array
+        DESCRIPTION.
+    subject : Integer, optional
+        The default is 1.
+
+    Returns
+    -------
+    eeg_epochs_fft_db_12hz : Numpy array of floats of size T x S where T is the number of trials and S is the number of  FFT points. eeg_epochs_fft_db_12hz
+        contains the power spectrum of data across channels after data across trials was averaged and normalized to the highest value
+        
+    eeg_epochs_fft_db_15hz : Numpy array of floats of size T x S where T is the number of trials and S is the number of  FFT points. eeg_epochs_fft_db_12hz
+        contains the power spectrum of data across channels after data across trials was averaged and normalized to the highest value
+
+    """
     
     #Find the 12Hz trials
     is_trial_12Hz=is_trial_15Hz==False
