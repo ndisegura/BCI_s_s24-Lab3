@@ -134,10 +134,13 @@ def plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,ch
     #Compute the mean
     eeg_epochs_fft_mean_12hz=np.mean(eeg_epochs_fft_power_12hz, axis=0)
     eeg_epochs_fft_mean_15hz=np.mean(eeg_epochs_fft_power_15hz, axis=0)
+    #Normalize to the highest power. Use array broadcasting to handle dimensions mismatch
+    eeg_epochs_fft_normalized_12hz=eeg_epochs_fft_mean_12hz/np.max(eeg_epochs_fft_mean_12hz,axis=1)[:,np.newaxis]
+    eeg_epochs_fft_normalized_15hz=eeg_epochs_fft_mean_12hz/np.max(eeg_epochs_fft_mean_15hz,axis=1)[:,np.newaxis]
     
     #Compute the FFT power in dB
-    eeg_epochs_fft_db_12hz= np.log10(eeg_epochs_fft_mean_12hz)
-    eeg_epochs_fft_db_15hz= np.log10(eeg_epochs_fft_mean_15hz)
+    eeg_epochs_fft_db_12hz= np.log10(eeg_epochs_fft_normalized_12hz)
+    eeg_epochs_fft_db_15hz= np.log10(eeg_epochs_fft_normalized_15hz)
     
     #is_channel_to_plot=channels==any(channels_to_plot)
     
