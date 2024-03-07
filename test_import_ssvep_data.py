@@ -29,7 +29,7 @@ data_dict=import_ssvep_data.load_ssvep_data(subject,data_directory)
 
 #%% Cell2 Plot the data
 
-import_ssvep_data.plot_raw_data(data_dict,subject,['Fz','Oz'])
+import_ssvep_data.plot_raw_data(data_dict,subject,['Fz','Oz','F4'])
 
 #%% Cell3 Epoch the data_dict
 
@@ -48,7 +48,7 @@ eeg_epochs_fft,fft_frequencies=import_ssvep_data.get_frequency_spectrum(eeg_epoc
 #%% Cell 5: Plot the Power Spectra
 
 channels=data_dict['channels']
-channels_to_plot=['Fz','Oz']
+channels_to_plot=['Fz','Oz','F4']
 spectrum_db_12Hz,spectrum_db_15Hz=import_ssvep_data.plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,channels_to_plot,subject)
 
 #%% Cell 6: 

@@ -263,7 +263,9 @@ def plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,ch
         
        is_channel_to_plot=channels==channel_name
        axs[channel_index].plot(fft_frequencies,np.squeeze(eeg_epochs_fft_db_12hz[is_channel_to_plot]),label='12Hz')
+       axs[channel_index].axvline(x=12,linewidth=1, color='b')
        axs[channel_index].plot(fft_frequencies,np.squeeze(eeg_epochs_fft_db_15hz[is_channel_to_plot]),label='15Hz')
+       axs[channel_index].axvline(x=15,linewidth=1,  color="orange")
        axs[channel_index].set_ylabel('Power (dB)')
        axs[channel_index].set_xlabel('Frequency (Hz)')
        axs[channel_index].set_title(f'Channel {channel_name} frequency content\n for SSVEP S{subject}')
