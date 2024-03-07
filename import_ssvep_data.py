@@ -141,20 +141,22 @@ def epoch_ssvep_data(data,epoch_start_time,epoch_end_time):
 def get_frequency_spectrum(eeg_epochs,fs):
     """
     Function to compute the fast fourier transform of epoch'd eeg data'
-
+    
     Parameters
     ----------
-    eeg_epochs : TYPE
-        DESCRIPTION.
-    fs : TYPE
-        DESCRIPTION.
+    eeg_epochs : numpy array of floats of size T x C x S where T is the number 
+    of event TRIALS, C is the number of channels
+    and S is the numnber of EEG samples
+ 
+    fs : integer.Input describing the sampling rate of EEG data in units of samples per second
 
     Returns
     -------
-    eeg_epochs_fft : TYPE
-        DESCRIPTION.
-    fft_frequencies : TYPE
-        DESCRIPTION.
+    eeg_epochs_fft : numpy array of floats of dimension T x C x S where T is the number of event TRIALS, C is the number of channels
+    and S is the numnber of FFT points computed from EEG samples. eeg_epochs_fft contains the complex number spectrum of the eeg data
+        
+    fft_frequencies : numpuy array of float of size (n,) where n is the number of frequency number from 0 (DC) up to the nyquest rate.
+        
 
     """
     
@@ -178,7 +180,7 @@ def plot_power_spectrum(eeg_epochs_fft,fft_frequencies,is_trial_15Hz,channels,ch
     and S is the numnber of FFT points computed from EEG samples. eeg_epochs_fft contains the complex number spectrum of the eeg data
         
     fft_frequencies : numpuy array of float of size (n,) where n is the number of frequency number from 0 (DC) up to the nyquest rate.
-        DESCRIPTION.
+        
     is_trial_15Hz : Boolean array of size T what is TRUE whenever the event was 15Hz SSVEP 
         
     channels : array of string containing the list of channels
