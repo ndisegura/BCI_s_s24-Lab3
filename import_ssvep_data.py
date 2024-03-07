@@ -10,6 +10,24 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft, ifft
 
 def load_ssvep_data(subject,data_directory):
+    '''
+    This function loads ssvep data and stores it in a dictionary for easy 
+    access.
+
+    Parameters
+    ----------
+    subject : int
+        subject number of data to load in
+    data_directory :str
+        path to data folder.
+
+    Returns
+    -------
+    data_dict : dictonary 
+         containing feilds of ssvep data representing strings, floats, and bool, 
+         size of dictionary 1 x N where N is the amount of feilds
+
+    '''
     data_file=f'{data_directory}SSVEP_S{subject}.npz'
     
     # Load dictionary
@@ -20,6 +38,25 @@ def load_ssvep_data(subject,data_directory):
     
 
 def plot_raw_data(data,subject,channels_to_plot):
+    '''
+    Plots raw ssvep data 
+
+    Parameters
+    ----------
+    data : dictonary 
+         containing feilds of ssvep data representing strings, floats, and bool, 
+         size of dictionary N x 1 where N is the amount of feilds
+    subject : int
+        subject number of data to load in
+    channels_to_plot : list of str
+        list of spatial electrode locations to be plotted, size N x 1 where n
+        is the amount of spatial electrodes
+
+    Returns
+    -------
+    None.
+
+    '''
 
     channels=data['channels']
     eeg=data['eeg']
